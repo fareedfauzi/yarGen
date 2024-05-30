@@ -29,6 +29,7 @@ from collections import Counter
 from hashlib import sha256
 import signal as signal_module
 from lxml import etree
+from typing import List, Tuple
 
 RELEVANT_EXTENSIONS = [".asp", ".vbs", ".ps", ".ps1", ".tmp", ".bas", ".bat", ".cmd", ".com", ".cpl",
                        ".crt", ".dll", ".exe", ".msc", ".scr", ".sys", ".vb", ".vbe", ".vbs", ".wsc",
@@ -297,7 +298,7 @@ def parse_good_dir(dir, notRecursive=False, onlyRelevantExtensions=True):
     return all_strings, all_opcodes, all_imphashes, all_exports
 
 
-def extract_strings(fileData) -> list[str]:
+def extract_strings(fileData) -> List[str]:
     # String list
     cleaned_strings = []
     # Read file data
@@ -339,7 +340,7 @@ def extract_strings(fileData) -> list[str]:
     return cleaned_strings
 
 
-def extract_opcodes(fileData) -> list[str]:
+def extract_opcodes(fileData) -> List[str]:
     # Opcode list
     opcodes = []
 
@@ -381,7 +382,7 @@ def extract_opcodes(fileData) -> list[str]:
     return opcodes
 
 
-def get_pe_info(fileData: bytes) -> tuple[str, list[str]]:
+def get_pe_info(fileData: bytes) -> Tuple[str, List[str]]:
     """
     Get different PE attributes and hashes by lief
     :param fileData:
@@ -530,7 +531,7 @@ def sample_string_evaluation(string_stats, opcode_stats, file_info):
     return (file_strings, file_opcodes, combinations, super_rules, inverse_stats)
 
 
-def filter_opcode_set(opcode_set: list[str]) -> list[str]:
+def filter_opcode_set(opcode_set: List[str]) -> List[str]:
     # Preferred Opcodes
     pref_opcodes = [' 34 ', 'ff ff ff ']
 
